@@ -36,12 +36,19 @@ if __name__ == "__main__":
 		results = (r for r in results if len(r) >= eval(sys.argv[2]))
 	
 	f = open('out.tmp', 'w')
-	sys.stdout = f
 	for r in track(results, description="Looking up words"):
-		defns = wn.synsets(r)
-		print(r)
+		while True:
+			try:
+				defns = wn.synsets(r)
+				break
+			except LookupError:
+				import nltk
+				nltk.download("brown")
+				continue
+
+		print(r, file=f)
 		for d in defns:
-			print("\t", wn.synset(d.name()).definition()) # type: ignore
+			print("\t", wn.synset(d.name()).definition(), file=f)
 
 	os.system('less out.tmp')
 	f.close()
