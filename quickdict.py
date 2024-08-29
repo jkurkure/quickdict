@@ -1,14 +1,27 @@
-from nltk.corpus import brown
 import sys, os
 
-from rich.progress import track
-from nltk.corpus import wordnet as wn
+while True:
+	try:
+		from nltk.corpus import brown
+		from rich.progress import track
+		from nltk.corpus import wordnet as wn
+		break
+	except ModuleNotFoundError:
+		os.system("pip install nltk rich")
+		continue
 
 # find = lambda w: set([word for word in brown.words() if w == word[:len(w)] ])
 dictry = []
-for word in track(brown.words(), description="Loading dictionary"):
-	if word not in dictry:
-		dictry.append(word)
+while True:
+	try:
+		for word in track(brown.words(), description="Loading dictionary"):
+			if word not in dictry:
+				dictry.append(word)
+		break
+	except LookupError:
+		import nltk
+		nltk.download("brown")
+		continue
 
 def find(w, reverse=False):
 	for word in dictry:
