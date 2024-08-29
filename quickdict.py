@@ -43,7 +43,7 @@ if __name__ == "__main__":
 				break
 			except LookupError:
 				import nltk
-				nltk.download("brown")
+				nltk.download("wordnet")
 				continue
 
 		print(r, file=f)
