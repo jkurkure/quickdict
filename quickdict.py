@@ -75,7 +75,7 @@ if __name__ == "__main__":
 		print(r, file=f)
 		for d in defns:
 			print("\t", wn.synset(d.name()).definition(), file=f)
-	time.sleep(0.03)
+			
 	if os.stat("out.tmp").st_size > 0:  
 		os.system('less out.tmp')
 	else:
