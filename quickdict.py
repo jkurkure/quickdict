@@ -1,4 +1,4 @@
-import sys, os, platformdirs, pickle
+import sys, os, platformdirs, pickle, time
 
 while True:
 	try:
@@ -44,7 +44,7 @@ def find(w, reverse=False):
 
 
 if __name__ == "__main__":
-	id = f"results {sys.argv[1]}"
+	id = " ".join([s for s in sys.argv[1:]])
 	if id in registry:
 		f = open('out.tmp', 'w')
 		print(registry[id], file=f)
@@ -59,17 +59,6 @@ if __name__ == "__main__":
 	results = find(sys.argv[1], reverse = sys.argv[-1]=='-r')
 
 	if len(sys.argv) > 2:
-		id += f" {sys.argv[2]}"
-		if id in registry:
-			f = open('out.tmp', 'w')
-			print(registry[id], file=f)
-			f.close()
-			if os.stat("out.tmp").st_size > 0:  
-				os.system('less out.tmp')
-			else:
-				print("No matches found!")
-			os.remove('out.tmp')
-			exit()
 		results = (r for r in results if len(r) >= eval(sys.argv[2]))
 	
 	f = open('out.tmp', 'w')
@@ -86,7 +75,7 @@ if __name__ == "__main__":
 		print(r, file=f)
 		for d in defns:
 			print("\t", wn.synset(d.name()).definition(), file=f)
-	
+	time.sleep(0.03)
 	if os.stat("out.tmp").st_size > 0:  
 		os.system('less out.tmp')
 	else:
