@@ -14,7 +14,7 @@ while True:
 data_dir = platformdirs.user_data_dir(appname="quickdict", appauthor="jkurkure")
 if not os.path.exists(data_dir):
 	os.makedirs(data_dir)
-file_path = os.path.join(data_dir, "day-archive.sav")
+file_path = os.path.join(data_dir, "dict-lookup-archive.sav")
 
 registry = {}
 
